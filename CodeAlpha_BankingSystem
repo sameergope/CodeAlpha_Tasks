@@ -1,0 +1,146 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define FILENAME "account.dat"
+typedef struct 
+{
+    int accountNumber;
+    char name[50];
+    float balance;
+} Account;
+void loadAccount(Account *acc);
+void saveAccount(Account *acc);
+void createAccount(Account *acc);
+void deposit(Account *acc);
+void withdraw(Account *acc);
+void checkBalance(Account *acc);
+void showMenu(void);
+int main() 
+{
+    Account acc;
+    int choice;
+    loadAccount(&acc);
+    do 
+	{
+        showMenu();
+        printf("Enter your choice: ");
+        if (scanf("%d", &choice) != 1) 
+		{
+            printf("\nInvalid input. Please enter a number.\n\n");
+            while (getchar() != '\n'); /* clear the bad input */
+            continue;
+        }
+        switch (choice) 
+		{
+            case 1:
+                deposit(&acc);
+                break;
+            case 2:
+                withdraw(&acc);
+                break;
+            case 3:
+                checkBalance(&acc);
+                break;
+            case 4:
+                printf("\nThank you for banking with us, %s. Goodbye!\n", acc.name);
+                break;
+            default:
+                printf("\nInvalid choice. Please enter 1-4.\n");
+        }
+
+        printf("\n");
+    }
+	 while (choice != 4);
+    return 0;
+}
+void showMenu(void) {
+    printf("===========================================\n");
+    printf("        BANK ACCOUNT MANAGEMENT SYSTEM\n");
+    printf("===========================================\n");
+    printf("1. Deposit\n");
+    printf("2. Withdraw\n");
+    printf("3. Balance Enquiry\n");
+    printf("4. Exit\n");
+    printf("-------------------------------------------\n");
+}
+void loadAccount(Account *acc) 
+{
+  FILE *fp = fopen(FILENAME, "rb");
+    if (fp == NULL) 
+	{
+        printf("No existing account found. Let's create one.\n\n");
+        createAccount(acc);
+        return;
+    }
+    fread(acc, sizeof(Account), 1, fp);
+    fclose(fp);
+    printf("Welcome back, %s!\n\n", acc->name);
+}
+void saveAccount(Account *acc) 
+{
+    FILE *fp = fopen(FILENAME, "wb");
+    if (fp == NULL) 
+	{
+        printf("Error: could not save account data.\n");
+        return;
+    }
+    fwrite(acc, sizeof(Account), 1, fp);
+    fclose(fp);
+}
+void createAccount(Account *acc) 
+{
+    printf("Enter account number: ");
+    scanf("%d", &acc->accountNumber);
+    printf("Enter account holder name: ");
+    scanf(" %49[^\n]", acc->name);
+    printf("Enter initial deposit amount: ");
+    scanf("%f", &acc->balance);
+    if (acc->balance < 0) 
+	{
+        acc->balance = 0;
+        printf("Initial deposit cannot be negative. Set to 0.\n");
+    }
+    saveAccount(acc);
+    printf("\nAccount created successfully!\n\n");
+}
+void deposit(Account *acc) 
+{
+    float amount;
+    printf("Enter amount to deposit: ");
+    scanf("%f", &amount);
+    if (amount <= 0) 
+	{
+        printf("Deposit amount must be positive.\n");
+        return;
+    }
+    acc->balance += amount;
+    saveAccount(acc);
+    printf("Deposit successful! New balance: %.2f\n", acc->balance);
+}
+void withdraw(Account *acc) 
+{
+    float amount;
+    printf("Enter amount to withdraw: ");
+    scanf("%f", &amount);
+    if (amount <= 0) 
+	{
+        printf("Withdrawal amount must be positive.\n");
+        return;
+    }
+    if (amount > acc->balance) 
+	{
+        printf("Insufficient balance! Current balance: %.2f\n", acc->balance);
+        return;
+    }
+    acc->balance -= amount;
+    saveAccount(acc);
+    printf("Withdrawal successful! New balance: %.2f\n", acc->balance);
+}
+void checkBalance(Account *acc) 
+{
+    printf("-------------------------------------------\n");
+    printf("Account Number : %d\n", acc->accountNumber);
+    printf("Account Holder : %s\n", acc->name);
+    printf("Current Balance: %.2f\n", acc->balance);
+    printf("-------------------------------------------\n");
+}
