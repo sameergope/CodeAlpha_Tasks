@@ -1,6 +1,5 @@
 # CodeAlpha_Tasks
 
-
 CodeAlpha C Programming Internship
 
 Welcome to my CodeAlpha C Programming Internship repository. This repository contains the tasks completed during my internship, demonstrating my understanding of fundamental C programming concepts and problem-solving skills.
@@ -17,7 +16,7 @@ Features
 - Subtraction
 - Multiplication
 - Division
-- User-friendly menu using "switch-case"
+- User-friendly menu using switch-case
 
 Concepts Used
 
@@ -29,7 +28,29 @@ Concepts Used
 
 ---
 
-✅ Task 2: Bank Account Management System
+✅ Task 2: Matrix Operations
+
+A menu-driven matrix operations program developed using functions and 2D arrays.
+
+Features
+
+- Matrix Addition
+- Matrix Multiplication
+- Matrix Transpose
+- Modular implementation using functions
+- User-friendly console interface
+
+Concepts Used
+
+- 2D Arrays
+- Functions
+- Nested Loops
+- Matrix Operations
+- User Input/Output
+
+---
+
+✅ Task 3: Bank Account Management System
 
 A menu-driven banking application developed in C.
 
@@ -62,11 +83,12 @@ Concepts Used
 
 - Improved problem-solving skills
 - Hands-on experience with C programming fundamentals
-- Practical implementation of functions, structures, and file handling
+- Practical implementation of functions, structures, 2D arrays, and file handling
 - Better understanding of modular programming
+- Enhanced logical thinking through matrix-based computations
 
 🙏 Acknowledgement
 
 I sincerely thank CodeAlpha for providing this internship opportunity and helping me strengthen my programming skills through practical projects.
 
-#CodeAlpha #CProgramming #Internship #OpenSource #Learning #GitHub
+#CodeAlpha #CProgramming #Internship #OpenSource #Learning #GitHub #MatrixOperations
